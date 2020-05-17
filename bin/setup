@@ -2,6 +2,6 @@
 # * Install dependencies
 # * Build/Compile
 # * Run Test Suit to validate
-mvn clean compile test
+mvn clean compile test install
 # After this is run, bin/parking_lot
 # should Just Work.
