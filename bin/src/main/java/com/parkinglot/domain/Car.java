@@ -1,4 +1,4 @@
-package com.parkinglot;
+package com.parkinglot.domain;
 
 public class Car {
     private String registrationNumber;

@@ -1,12 +1,17 @@
-package com.parkinglot;
+package com.parkinglot.domain;
+
+import com.parkinglot.domain.Car;
+import com.parkinglot.domain.NearestToEntryParking;
+import com.parkinglot.domain.ParkingDetail;
+import com.parkinglot.domain.ParkingSlot;
+import com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-class ParkingLot {
+public class ParkingLot {
     public static final String SORRY_VEHICLE_IS_ALREADY_PARKED = "Sorry, vehicle is already parked.";
     public static final String SORRY_PARKING_LOT_IS_FULL = "Sorry, parking lot is full";
     public static final String ALLOCATED_SLOT_NUMBER = "Allocated slot number: ";
@@ -15,7 +20,7 @@ class ParkingLot {
     private AtomicInteger numberOfSlots;
     private NearestToEntryParking nearestToEntryParking;
 
-    ParkingLot(int capacity) {
+    public ParkingLot(int capacity) {
         if (capacity <= 0) {
             throw new ZeroOrLessParkingSlotCapacityException();
         }

@@ -1,5 +1,8 @@
 package com.parkinglot;
 
+import com.parkinglot.domain.Command;
+import com.parkinglot.domain.ParkingLot;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

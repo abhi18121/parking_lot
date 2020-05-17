@@ -1,9 +1,12 @@
-package com.parkinglot;
+package com.parkinglot.domain;
 
+import com.parkinglot.domain.ParkingDetail;
+import com.parkinglot.domain.ParkingLot;
+import com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static com.parkinglot.ZeroOrLessParkingSlotCapacityException.MESSAGE;
+import static com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException.MESSAGE;
 
 //given
 //when

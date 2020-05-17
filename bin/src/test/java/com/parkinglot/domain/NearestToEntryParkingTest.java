@@ -1,12 +1,13 @@
-package com.parkinglot;
+package com.parkinglot.domain;
 
+import com.parkinglot.domain.NearestToEntryParking;
+import com.parkinglot.exception.SlotsNotAvailableException;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.TreeSet;
 
 public class NearestToEntryParkingTest {
-
 
     @Test(expected = SlotsNotAvailableException.class)
     public void shouldGetSlotsNotAvailableException() {

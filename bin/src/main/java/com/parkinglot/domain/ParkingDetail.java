@@ -1,4 +1,4 @@
-package com.parkinglot;
+package com.parkinglot.domain;
 
 import java.time.LocalDate;
 

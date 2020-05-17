@@ -1,7 +1,9 @@
 /**
  *
  */
-package com.parkinglot;
+package com.parkinglot.domain;
+
+import com.parkinglot.exception.SlotsNotAvailableException;
 
 import java.util.TreeSet;
 
