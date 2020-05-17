@@ -10,7 +10,7 @@ echo $DIR
 # Use DIR variable above to pinpoint your jar/executable/main class
 # e.g.
 # - if java
-   java -cp "$DIR/target/parkinglot-1.0-SNAPSHOT.jar" com.parkinglot.Main $1
+java -cp "$DIR/target/parkinglot-1.0-SNAPSHOT.jar" com.parkinglot.Main $1
 # - if python
 #   python3 $DIR/../main.py $1
 # - if ruby

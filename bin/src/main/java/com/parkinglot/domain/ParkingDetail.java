@@ -1,17 +1,13 @@
 package com.parkinglot.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ParkingDetail {
     private Car car;
-    private LocalDate parkedTime;
 
     public Car getCar() {
         return car;
-    }
-
-    public LocalDate getParkedTime() {
-        return parkedTime;
     }
 
     public ParkingSlot getSlot() {
@@ -21,9 +17,8 @@ public class ParkingDetail {
     private ParkingSlot slot;
     private String message;
 
-    public ParkingDetail(Car car, LocalDate parkedTime, ParkingSlot slot) {
+    public ParkingDetail(Car car, LocalDateTime parkedTime, ParkingSlot slot) {
         this.car = car;
-        this.parkedTime = parkedTime;
         this.slot = slot;
     }
 

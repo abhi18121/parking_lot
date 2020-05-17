@@ -1,14 +1,13 @@
 package com.parkinglot.domain;
 
-import com.parkinglot.domain.Car;
-import com.parkinglot.domain.NearestToEntryParking;
-import com.parkinglot.domain.ParkingDetail;
-import com.parkinglot.domain.ParkingSlot;
+import com.parkinglot.charges.ParkingCharges;
 import com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ParkingLot {
@@ -43,17 +42,17 @@ public class ParkingLot {
             System.out.println(SORRY_PARKING_LOT_IS_FULL);
             parkingDetail.setMessage(SORRY_PARKING_LOT_IS_FULL);
         } else {
-            parkingDetail = getParkingDetail(registrationNumber);
+            parkingDetail = parkVehicle(registrationNumber);
         }
         return parkingDetail;
     }
 
-    private ParkingDetail getParkingDetail(String registrationNumber) {
+    private ParkingDetail parkVehicle(String registrationNumber) {
         ParkingDetail parkingDetail;
         int slot = nearestToEntryParking.getSlot();
         ParkingSlot parkingSlot = new ParkingSlot(slot, registrationNumber);
-        parkingDetail = new ParkingDetail(new Car(registrationNumber), LocalDate.now(), parkingSlot);
-        this.parkingDetails.put(new ParkingSlot(slot, registrationNumber), parkingDetail);
+        parkingDetail = new ParkingDetail(new Car(registrationNumber), LocalDateTime.now(), parkingSlot);
+        this.parkingDetails.put(parkingSlot, parkingDetail);
         numberOfSlots.decrementAndGet();
         System.out.println(ALLOCATED_SLOT_NUMBER + slot);
         parkingDetail.setMessage(ALLOCATED_SLOT_NUMBER + slot);
@@ -76,14 +75,26 @@ public class ParkingLot {
             int slotNumber = parkingDetail.getSlot().getSlotNumber();
             nearestToEntryParking.removeSlot(slotNumber);
             String message = "Registration number " + registrationNumber + " with Slot Number "
-                    + slotNumber + " is free with Charge ";
+                    + slotNumber + " is free with Charge " + ParkingCharges.charge(hours);
             System.out.println(message);
             parkingDetail.setMessage(message);
+            numberOfSlots.incrementAndGet();
+        } else {
+            System.out.println("Registration number " + registrationNumber + " not found ");
+            parkingDetail.setMessage("Registration number " + registrationNumber + " not found ");
         }
         return parkingDetail;
     }
 
-    public void status() {
+    public Map<ParkingSlot, ParkingDetail> status() {
+        System.out.println("Slot No.\tRegistration No.");
+        parkingDetails.keySet()
+                .stream()
+                .sorted(Comparator.comparing(ParkingSlot::getSlotNumber))
+                .forEach(parkingSlot -> {
+                    System.out.println(parkingSlot.getSlotNumber() + "\t\t\t" + parkingSlot.getRegistrationNumber());
+                });
+        return parkingDetails;
     }
 
     public boolean isParkingAvailable() {

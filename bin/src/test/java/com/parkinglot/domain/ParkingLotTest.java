@@ -1,10 +1,10 @@
 package com.parkinglot.domain;
 
-import com.parkinglot.domain.ParkingDetail;
-import com.parkinglot.domain.ParkingLot;
 import com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static com.parkinglot.exception.ZeroOrLessParkingSlotCapacityException.MESSAGE;
 
@@ -88,7 +88,7 @@ public class ParkingLotTest {
         //when
         ParkingDetail leftVehicleParkingDetail = parkingLot.leave("1-A", 4);
         //then
-        Assert.assertNull(leftVehicleParkingDetail.getMessage());
+        Assert.assertEquals("Registration number 1-A not found ", leftVehicleParkingDetail.getMessage());
     }
 
     @Test
@@ -101,7 +101,19 @@ public class ParkingLotTest {
         ParkingDetail leftVehicleParkingDetail = parkingLot.leave("1-AB", 4);
         //then
         Assert.assertNotNull(leftVehicleParkingDetail.getMessage());
-        Assert.assertNotNull(parkingDetail.getCar().getRegistrationNumber(),leftVehicleParkingDetail.getCar().getRegistrationNumber());
+        Assert.assertNotNull(parkingDetail.getCar().getRegistrationNumber(), leftVehicleParkingDetail.getCar().getRegistrationNumber());
+    }
+
+    @Test
+    public void shouldGetParkingLotStatus() {
+        //given
+        int capacity = 6;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        ParkingDetail parkingDetail = parkingLot.park("1-AB");
+        //when
+        Map<ParkingSlot, ParkingDetail> status = parkingLot.status();
+        //then
+        Assert.assertEquals(1, status.size());
     }
 
 }

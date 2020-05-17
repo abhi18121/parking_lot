@@ -41,8 +41,7 @@ public class Main {
                         ;
                 }
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             System.out.println("Exception while parsing file in try block =>" + e.getMessage());
         }
     }
